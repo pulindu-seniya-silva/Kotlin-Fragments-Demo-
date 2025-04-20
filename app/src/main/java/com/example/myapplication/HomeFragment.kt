@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,19 +44,16 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireActivity(), "Home Button Clicked", Toast.LENGTH_LONG).show()
         }
 
+        val viewModel = ViewModelProvider(requireActivity())[FragmentViewModel::class.java]
+
+        viewModel.getBackgroundColor().observe(requireActivity()) {
+            rootView.setBackgroundResource(it)
+        }
         return rootView
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             HomeFragment().apply {
